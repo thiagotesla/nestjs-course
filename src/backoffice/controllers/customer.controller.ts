@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put } from "@nestjs/common";
+import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 
 @Controller('v1/customers')
 export class CustomerController{
@@ -6,9 +6,9 @@ export class CustomerController{
     get() {
         return 'Método Get';
     }
-    @Get()
-    getById(){
-        return 'Método GetById';
+    @Get(':document')
+    getById(@Param('document') document){
+        return 'Método GetById ' + document;
     }
 
     @Post()
