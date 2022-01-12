@@ -1,4 +1,5 @@
 import { Adress } from "./adress.model";
+import { CreditCard } from "./credit-card.model";
 import { Pet } from "./pets.model";
 
 export class Customer{
@@ -11,6 +12,7 @@ export class Customer{
         public pets: Pet[],
         public billingAdress: Adress[],
         public shippingAdress: Adress[],
+        public creditcard: CreditCard[],
     ){
     }
 }
