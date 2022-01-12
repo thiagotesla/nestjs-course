@@ -37,9 +37,9 @@ export class CustomerController{
     }
 
     @Put(':document')
-    put(@Param('document') document, @Body() body) {
+    put(@Param('document') document, @Body() body: Customer) {
         return new Result(
-        'Cliente atualizado com sucesso!',
+        'Cliente de CPF ' + document + ' atualizado com sucesso!',
         body.name,
         true,
         null
