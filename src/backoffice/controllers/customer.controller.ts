@@ -24,8 +24,8 @@ export class CustomerController{
         };
     }
 
-    @Delete()
-    delete(){
-        return 'Método Delete';
+    @Delete(':document')
+    delete(@Param('document') document){
+        return 'Usuário ' + document + ' deletado!';
     }
 }
