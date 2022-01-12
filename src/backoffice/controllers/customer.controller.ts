@@ -7,6 +7,10 @@ export class CustomerController{
         return 'Método Get';
     }
 
+    getById(){
+        return 'Método GetById';
+    }
+
     @Post()
     post(){
         return 'Método Post';
