@@ -14,7 +14,7 @@ export class CustomerController{
 
     @Post()
     post(@Body() body: Customer){
-        return [body];
+        return 'cliente ' + body.name + ' criado com sucesso! ' + 'email: ' + body.email + '!';
     }
 
     @Put(':document')
