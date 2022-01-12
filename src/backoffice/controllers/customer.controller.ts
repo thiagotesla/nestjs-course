@@ -16,9 +16,12 @@ export class CustomerController{
         return body;
     }
 
-    @Put()
-    put(@Body() body) {
-        return body;
+    @Put(':document')
+    put(@Param('document') document, @Body() body) {
+        return {
+            customer: document,
+            data: body,
+        };
     }
 
     @Delete()
