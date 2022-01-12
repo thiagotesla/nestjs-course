@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 
 @Controller('v1/customers')
 export class CustomerController{
@@ -12,8 +12,8 @@ export class CustomerController{
     }
 
     @Post()
-    post(){
-        return 'Método Post';
+    post(@Body() body){
+        return body;
     }
 
     @Put()
