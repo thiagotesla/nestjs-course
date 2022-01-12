@@ -17,8 +17,8 @@ export class CustomerController{
     }
 
     @Put()
-    put() {
-        return 'Método Put';
+    put(@Body() body) {
+        return body;
     }
 
     @Delete()
