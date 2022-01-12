@@ -47,9 +47,9 @@ export class CustomerController{
     }
 
     @Delete(':document')
-    delete(@Param('document') document, @Body()body: Customer){
+    delete(@Param('document') document) {
         return new Result(
-        'Cliente ' + body.name + ' deletado com sucesso',
+        'Cliente de CPF ' + document + ' deletado com sucesso.',
         null,
         true, 
         null
