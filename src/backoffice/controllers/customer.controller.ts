@@ -16,7 +16,7 @@ export class CustomerController{
     @Get(':document')
     getById(@Param('document')document ){
         return new Result(
-        'cliente de CPF ' + document +".",
+        'Cliente de CPF ' + document +".",
         {},
         true,
         null);
