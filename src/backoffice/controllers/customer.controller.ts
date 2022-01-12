@@ -6,7 +6,7 @@ export class CustomerController{
     get() {
         return 'Método Get';
     }
-
+    @Get()
     getById(){
         return 'Método GetById';
     }
