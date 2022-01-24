@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { BackofficeModule } from './backoffice/backoffice.module';
+import 'dotenv/config'
 
 @Module({
-  imports: [BackofficeModule],
+  imports: [
+    MongooseModule.forRoot(process.env.CONNECTION_STRING),
+    BackofficeModule
+  ],
   controllers: [],
   providers: [],
 })

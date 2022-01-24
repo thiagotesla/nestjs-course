@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Flunt } from "src/utils/flunt";
+import { CreateCustomerDto } from "../dtos/create-customer.dto";
 import { Customer } from "../models/customer.model";
 import { Contract } from "./contract";
 
@@ -7,7 +8,7 @@ import { Contract } from "./contract";
 export class CreateCustomerContract implements Contract{
     errors: any[];
 
-    validate(model: Customer): any {
+    validate(model: CreateCustomerDto): any {
         const flunt = new Flunt();
 
         flunt.hasMinLen(model.name, 2, "Nome inválido.");
