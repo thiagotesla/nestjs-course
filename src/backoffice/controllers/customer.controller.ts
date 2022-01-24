@@ -29,7 +29,8 @@ export class CustomerController{
         [
         body.name,
         body.email,
-        body.document
+        body.document,
+        body.pets
         ],
         true,
         null
