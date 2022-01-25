@@ -23,9 +23,6 @@ export const CustomerSchema = new mongoose.Schema({
     },
     pets: [
         {
-            id: {
-                type: String,
-            },
             name: {
                 type: String,
             },
@@ -36,7 +33,7 @@ export const CustomerSchema = new mongoose.Schema({
             kind: {
                 type: String,
             },
-            brand: {
+            breed: {
                 type: String,
             },
         },
