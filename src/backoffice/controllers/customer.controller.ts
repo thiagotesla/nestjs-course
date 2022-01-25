@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
+import { CreateAddressContract } from "../contracts/customers/create-address.contract";
 import { CreateCustomerContract } from "../contracts/customers/create-customer.contract";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
 import { Address } from "../models/address.model";
@@ -48,9 +49,16 @@ export class CustomerController{
         }    
     }
 
-    @Post()
-    AddBilillingAddress(@Body() model: Address){
-
+    @Post(':document/addresses/billing')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
+    async AddBilillingAddress(@Param('document') document, @Body() model: Address){
+        try{
+            await this.customerService.AddBillingAddress(document, model);
+            return model;
+        }
+        catch(error){
+            throw new HttpException(new Result('Não foi possível adicionar endereço. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Put(':document')
