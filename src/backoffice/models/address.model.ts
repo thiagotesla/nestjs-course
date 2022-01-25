@@ -6,6 +6,7 @@ export class Address{
         public complement: string,
         public neighborhood: string,
         public city: string,
+        public state: string,
         public country: string,
     ){
     }
