@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, 
 import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
 import { CreateAddressContract } from "../contracts/customers/create-address.contract";
 import { CreateCustomerContract } from "../contracts/customers/create-customer.contract";
+import { CreatePetContract } from "../contracts/customers/create-pet.contract";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
 import { Address } from "../models/address.model";
 import { Customer } from "../models/customer.model";
+import { Pet } from "../models/pets.model";
 import { Result } from "../models/result.model";
 import { User } from "../models/user.model";
 import { AccountService } from "../services/account.service";
@@ -70,6 +72,18 @@ export class CustomerController{
         }
         catch(error){
             throw new HttpException(new Result('Não foi possível adicionar endereço. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post(':document/cadastro/pet')
+    @UseInterceptors(new ValidatorInterceptor(new CreatePetContract))
+    async createPet(@Param('document') document, @Body() model: Pet){
+        try{
+            await this.customerService.AddNewPet(document, model);
+            return model;
+        }
+        catch(error){
+            throw new HttpException(new Result('Não foi possível adicionar um novo pet. Confira seus dados.', null, false, error), HttpStatus.BAD_REQUEST);
         }
     }
 
