@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
 import { CreateCustomerContract } from "../contracts/customer.contract";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
@@ -36,10 +36,15 @@ export class CustomerController{
     @Post()
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
     async post(@Body() model: CreateCustomerDto){
-        const user = await this.accountService.create(new User(model.document, model.password, true));
+        try{
+            const user = await this.accountService.create(new User(model.document, model.password, true));
         const customer = new Customer(model.name, model.email, model.document, null, null, null, null, user);
         const res = await this.customerService.create(customer);
         return new Result('Cliente criado com sucesso!', {name: customer.name, email: customer.email}, true, null);
+        }
+        catch(error){
+            throw new HttpException(new Result('Email ou CPF já cadastrados.', false, null, error), HttpStatus.BAD_REQUEST); 
+        }    
     }
 
     @Put(':document')
