@@ -23,4 +23,13 @@ export class CustomerService {
         }, options) 
     }
 
+    async AddShippingAddress(document: string, data: Address): Promise<Customer>{
+        const options = {upsert: true};
+        return await this.model.findOneAndUpdate({document}, { 
+            $set: {
+                shippingAddress: data,
+            }
+        }, options) 
+    }
+
 }
