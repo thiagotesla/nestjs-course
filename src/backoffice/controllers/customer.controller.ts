@@ -19,22 +19,11 @@ export class CustomerController{
         private readonly customerService: CustomerService){
 
     }
+
     @Get()
-    get() {
-        return new Result(
-        'Lista de todos os clientes',
-        [],
-        true,
-        null
-        );
-    }
-    @Get(':document')
-    getById(@Param('document')document ){
-        return new Result(
-        'Cliente de CPF ' + document +".",
-        {},
-        true,
-        null);
+    async getAll(){
+        const customers = await this.customerService.findAll();
+        return new Result('Lista de todos os clientes', customers, true, null)
     }
 
     @Post()
@@ -51,7 +40,7 @@ export class CustomerController{
         }    
     }
 
-    @Post(':document/addresses/billing')
+    @Post(':document/billing')
     @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
     async AddBilillingAddress(@Param('document') document, @Body() model: Address){
         try{
@@ -59,11 +48,11 @@ export class CustomerController{
             return model;
         }
         catch(error){
-            throw new HttpException(new Result('Não foi possível adicionar endereço. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+            throw new HttpException(new Result('Não foi possível adicionar endereço cobrança. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @Post(':document/addresses/shipping')
+    @Post(':document/shipping')
     @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
     async AddShippingAddress(@Param('document') document, @Body() model: Address){
         try{
@@ -71,11 +60,11 @@ export class CustomerController{
             return model;
         }
         catch(error){
-            throw new HttpException(new Result('Não foi possível adicionar endereço. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+            throw new HttpException(new Result('Não foi possível adicionar endereço de entrega. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @Post(':document/cadastro/pet')
+    @Post(':document/pet')
     @UseInterceptors(new ValidatorInterceptor(new CreatePetContract))
     async createPet(@Param('document') document, @Body() model: Pet){
         try{
@@ -87,23 +76,15 @@ export class CustomerController{
         }
     }
 
-    @Put(':document')
-    put(@Param('document') document, @Body() body: Customer) {
-        return new Result(
-        'Cliente de CPF ' + document + ' atualizado com sucesso!',
-        body.name,
-        true,
-        null
-        );
-    }
-
-    @Delete(':document')
-    delete(@Param('document') document) {
-        return new Result(
-        'Cliente de CPF ' + document + ' deletado com sucesso.',
-        null,
-        true, 
-        null
-        );
+    @Put(':document/pet/:id')
+    @UseInterceptors(new ValidatorInterceptor(new CreatePetContract))
+    async updatePet(@Param('document') document, @Param('id') id, @Body() model: Pet){
+        try{
+            await this.customerService.updatePet(document, id, model);
+            return model;
+        }
+        catch(error){
+            throw new HttpException(new Result('Não foi possível atualizar o pet. Confira seus dados.', null, false, error), HttpStatus.BAD_REQUEST);
+        }
     }
 }
