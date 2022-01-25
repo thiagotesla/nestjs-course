@@ -8,8 +8,12 @@ import { Pet } from "../models/pets.model";
 @Injectable()
 export class CustomerService {
     constructor(@InjectModel('Customer') private readonly model: Model<Customer>){
-
+    
     }
+    async findAll(): Promise<Customer[]>{
+        return await this.model.find({}, 'name email document').exec();
+    }
+
     async create(data: Customer): Promise<Customer>{
         const customer = new this.model(data);
         return await customer.save();
@@ -40,5 +44,15 @@ export class CustomerService {
                 pets: data,
             }
         }, options) 
+    }
+
+    async updatePet(document: string, id: string, data: Pet): Promise<Customer>{
+        const options = {upsert: true};
+        return await this.model.findOneAndUpdate({document, 'pets._id': id
+        },{ $set: {
+            'pets.$': data,
+        }
+
+        })
     }
 }
