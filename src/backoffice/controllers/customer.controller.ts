@@ -6,10 +6,13 @@ import { Customer } from "../models/customer.model";
 import { Result } from "../models/result.model";
 import { User } from "../models/user.model";
 import { AccountService } from "../services/account.service";
+import { CustomerService } from "../services/customer.service";
 
 @Controller('v1/customers')
 export class CustomerController{
-    constructor(private readonly accountService: AccountService){
+    constructor(
+        private readonly accountService: AccountService,
+        private readonly customerService: CustomerService){
 
     }
     @Get()
@@ -34,7 +37,9 @@ export class CustomerController{
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
     async post(@Body() model: CreateCustomerDto){
         const user = await this.accountService.create(new User(model.document, model.password, true));
-        return new Result('Cliente criado com sucesso!', user, true, null);
+        const customer = new Customer(model.name, model.email, model.document, null, null, null, null, user);
+        const res = await this.customerService.create(customer);
+        return new Result('Cliente criado com sucesso!', {name: customer.name, email: customer.email}, true, null);
     }
 
     @Put(':document')
