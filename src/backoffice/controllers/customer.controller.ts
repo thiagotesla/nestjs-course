@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
-import { CreateCustomerContract } from "../contracts/customer.contract";
+import { CreateCustomerContract } from "../contracts/customers/create-customer.contract";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
+import { Address } from "../models/adress.model";
 import { Customer } from "../models/customer.model";
 import { Result } from "../models/result.model";
 import { User } from "../models/user.model";
@@ -45,6 +46,11 @@ export class CustomerController{
         catch(error){
             throw new HttpException(new Result('Email ou CPF já cadastrados.', false, null, error), HttpStatus.BAD_REQUEST); 
         }    
+    }
+
+    @Post()
+    AddBilillingAddress(@Body() model: Address){
+
     }
 
     @Put(':document')
