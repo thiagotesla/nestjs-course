@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, 
 import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
 import { CreateCustomerContract } from "../contracts/customers/create-customer.contract";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
-import { Address } from "../models/adress.model";
+import { Address } from "../models/address.model";
 import { Customer } from "../models/customer.model";
 import { Result } from "../models/result.model";
 import { User } from "../models/user.model";

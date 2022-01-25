@@ -1,4 +1,4 @@
-import { Address } from "./adress.model";
+import { Address } from "./address.model";
 import { CreditCard } from "./credit-card.model";
 import { Pet } from "./pets.model";
 import { User } from "./user.model";
