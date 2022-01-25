@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Address } from "../models/address.model";
 import { Customer } from "../models/customer.model";
+import { Pet } from "../models/pets.model";
 
 @Injectable()
 export class CustomerService {
@@ -32,4 +33,12 @@ export class CustomerService {
         }, options) 
     }
 
+    async AddNewPet(document: string, data: Pet): Promise<Customer>{
+        const options = {upsert: true, new: true};
+        return await this.model.findOneAndUpdate({document}, { 
+            $push: {
+                pets: data,
+            }
+        }, options) 
+    }
 }
