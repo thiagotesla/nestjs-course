@@ -4,7 +4,7 @@ import { Flunt } from "src/utils/flunt";
 import { Contract } from "../contract";
 
 @Injectable()
-export class CreateCustomerContract implements Contract{
+export class CreateAddressContract implements Contract{
     errors: any[];
 
     validate(model: Address): any {
