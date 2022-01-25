@@ -42,13 +42,13 @@ export const CustomerSchema = new mongoose.Schema({
         },
     ],
     billingAddress: {
-        zipcode: {
+        zipCode: {
             type: String,
         },
         street: {
             type: String,
         },
-        number: {
+        houseNumber: {
             type: String,
         },
         complement: {
@@ -68,13 +68,13 @@ export const CustomerSchema = new mongoose.Schema({
         },
     },
     shippingAddress: {
-        zipcode: {
+        zipCode: {
             type: String,
         },
         street: {
             type: String,
         },
-        number: {
+        houseNumber: {
             type: String,
         },
         complement: {
