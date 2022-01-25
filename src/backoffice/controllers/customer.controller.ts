@@ -61,6 +61,18 @@ export class CustomerController{
         }
     }
 
+    @Post(':document/addresses/shipping')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
+    async AddShippingAddress(@Param('document') document, @Body() model: Address){
+        try{
+            await this.customerService.AddShippingAddress(document, model);
+            return model;
+        }
+        catch(error){
+            throw new HttpException(new Result('Não foi possível adicionar endereço. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @Put(':document')
     put(@Param('document') document, @Body() body: Customer) {
         return new Result(
