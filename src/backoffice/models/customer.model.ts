@@ -1,4 +1,4 @@
-import { Adress } from "./adress.model";
+import { Address } from "./address.model";
 import { CreditCard } from "./credit-card.model";
 import { Pet } from "./pets.model";
 import { User } from "./user.model";
@@ -9,8 +9,8 @@ export class Customer{
         public email: string,
         public document: string,
         public pets: Pet[],
-        public billingAdress: Adress[],
-        public shippingAdress: Adress[],
+        public billingAdress: Address[],
+        public shippingAdress: Address[],
         public creditcard: CreditCard[],
         public user: User,
     ){

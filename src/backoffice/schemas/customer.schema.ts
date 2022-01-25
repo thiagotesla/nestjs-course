@@ -23,9 +23,6 @@ export const CustomerSchema = new mongoose.Schema({
     },
     pets: [
         {
-            id: {
-                type: String,
-            },
             name: {
                 type: String,
             },
@@ -36,19 +33,19 @@ export const CustomerSchema = new mongoose.Schema({
             kind: {
                 type: String,
             },
-            brand: {
+            breed: {
                 type: String,
             },
         },
     ],
     billingAddress: {
-        zipcode: {
+        zipCode: {
             type: String,
         },
         street: {
             type: String,
         },
-        number: {
+        houseNumber: {
             type: String,
         },
         complement: {
@@ -68,13 +65,13 @@ export const CustomerSchema = new mongoose.Schema({
         },
     },
     shippingAddress: {
-        zipcode: {
+        zipCode: {
             type: String,
         },
         street: {
             type: String,
         },
-        number: {
+        houseNumber: {
             type: String,
         },
         complement: {

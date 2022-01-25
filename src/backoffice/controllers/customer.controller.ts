@@ -1,8 +1,12 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
-import { CreateCustomerContract } from "../contracts/customer.contract";
+import { CreateAddressContract } from "../contracts/customers/create-address.contract";
+import { CreateCustomerContract } from "../contracts/customers/create-customer.contract";
+import { CreatePetContract } from "../contracts/customers/create-pet.contract";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
+import { Address } from "../models/address.model";
 import { Customer } from "../models/customer.model";
+import { Pet } from "../models/pets.model";
 import { Result } from "../models/result.model";
 import { User } from "../models/user.model";
 import { AccountService } from "../services/account.service";
@@ -45,6 +49,42 @@ export class CustomerController{
         catch(error){
             throw new HttpException(new Result('Email ou CPF já cadastrados.', false, null, error), HttpStatus.BAD_REQUEST); 
         }    
+    }
+
+    @Post(':document/addresses/billing')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
+    async AddBilillingAddress(@Param('document') document, @Body() model: Address){
+        try{
+            await this.customerService.AddBillingAddress(document, model);
+            return model;
+        }
+        catch(error){
+            throw new HttpException(new Result('Não foi possível adicionar endereço. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post(':document/addresses/shipping')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
+    async AddShippingAddress(@Param('document') document, @Body() model: Address){
+        try{
+            await this.customerService.AddShippingAddress(document, model);
+            return model;
+        }
+        catch(error){
+            throw new HttpException(new Result('Não foi possível adicionar endereço. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post(':document/cadastro/pet')
+    @UseInterceptors(new ValidatorInterceptor(new CreatePetContract))
+    async createPet(@Param('document') document, @Body() model: Pet){
+        try{
+            await this.customerService.AddNewPet(document, model);
+            return model;
+        }
+        catch(error){
+            throw new HttpException(new Result('Não foi possível adicionar um novo pet. Confira seus dados.', null, false, error), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Put(':document')
