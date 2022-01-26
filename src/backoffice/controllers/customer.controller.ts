@@ -17,26 +17,40 @@ export class CustomerController{
     constructor(
         private readonly accountService: AccountService,
         private readonly customerService: CustomerService){
-
     }
 
     @Get()
     async getAll(){
         const customers = await this.customerService.findAll();
-        return new Result('Lista de todos os clientes', customers, true, null)
+        return new Result(
+            'Lista de todos os clientes',
+            customers,
+            true,
+            null
+        );
     }
 
     @Post()
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
     async post(@Body() model: CreateCustomerDto){
         try{
-            const user = await this.accountService.create(new User(model.document, model.password, true));
+        const user = await this.accountService.create(new User(model.document, model.password, true));
         const customer = new Customer(model.name, model.email, model.document, null, null, null, null, user);
-        const res = await this.customerService.create(customer);
-        return new Result('Cliente criado com sucesso!', {name: customer.name, email: customer.email}, true, null);
+            return new Result(
+                'Cliente criado com sucesso!',
+                {name: customer.name, email: customer.email},
+                true,
+                null
+            );
         }
         catch(error){
-            throw new HttpException(new Result('Email ou CPF já cadastrados.', false, null, error), HttpStatus.BAD_REQUEST); 
+            throw new HttpException(new Result(
+                'Email ou CPF já cadastrados.',
+                false,
+                null,
+                error),
+                HttpStatus.BAD_REQUEST
+            ); 
         }    
     }
 
@@ -44,11 +58,22 @@ export class CustomerController{
     @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
     async AddBilillingAddress(@Param('document') document, @Body() model: Address){
         try{
-            await this.customerService.AddBillingAddress(document, model);
-            return model;
+            const response = await this.customerService.AddBillingAddress(document, model);
+            return new Result(
+                'Endereço de cobrança adicionado co sucesso.',
+                response,
+                true,
+                null
+            );
         }
         catch(error){
-            throw new HttpException(new Result('Não foi possível adicionar endereço cobrança. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+            throw new HttpException(new Result(
+                'Não foi possível adicionar endereço cobrança. Confira seus dados.',
+                false,
+                null,
+                error),
+                HttpStatus.BAD_REQUEST
+            );
         }
     }
 
@@ -56,11 +81,22 @@ export class CustomerController{
     @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract))
     async AddShippingAddress(@Param('document') document, @Body() model: Address){
         try{
-            await this.customerService.AddShippingAddress(document, model);
-            return model;
+           const response = await this.customerService.AddShippingAddress(document, model);
+            return new Result(
+                'Endereço de entrega adicionado com sucesso.',
+                response,
+                true,
+                null
+            );
         }
         catch(error){
-            throw new HttpException(new Result('Não foi possível adicionar endereço de entrega. Confira seus dados.', false, null, error), HttpStatus.BAD_REQUEST);
+            throw new HttpException(new Result(
+                'Não foi possível adicionar endereço de entrega. Confira seus dados.',
+                false,
+                null,
+                error),
+                HttpStatus.BAD_REQUEST
+            );
         }
     }
 
@@ -68,11 +104,22 @@ export class CustomerController{
     @UseInterceptors(new ValidatorInterceptor(new CreatePetContract))
     async createPet(@Param('document') document, @Body() model: Pet){
         try{
-            await this.customerService.AddNewPet(document, model);
-            return model;
+            const response = await this.customerService.AddNewPet(document, model);
+            return new Result(
+                'Pet adicionado com sucesso.',
+                response,
+                true,
+                null
+            );
         }
         catch(error){
-            throw new HttpException(new Result('Não foi possível adicionar um novo pet. Confira seus dados.', null, false, error), HttpStatus.BAD_REQUEST);
+            throw new HttpException(new Result(
+                'Não foi possível adicionar um novo pet. Confira seus dados.',
+                null,
+                false,
+                error),
+                HttpStatus.BAD_REQUEST
+            );
         }
     }
 
@@ -80,11 +127,22 @@ export class CustomerController{
     @UseInterceptors(new ValidatorInterceptor(new CreatePetContract))
     async updatePet(@Param('document') document, @Param('id') id, @Body() model: Pet){
         try{
-            await this.customerService.updatePet(document, id, model);
-            return model;
+            const response = await this.customerService.updatePet(document, id, model);
+            return new Result(
+                'Pet alterado com sucesso',
+                response,
+                true,
+                null
+            );
         }
         catch(error){
-            throw new HttpException(new Result('Não foi possível atualizar o pet. Confira seus dados.', null, false, error), HttpStatus.BAD_REQUEST);
+            throw new HttpException(new Result(
+                'Não foi possível atualizar o pet. Confira seus dados.',
+                null,
+                false,
+                error),
+                HttpStatus.BAD_REQUEST
+            );
         }
     }
 }
