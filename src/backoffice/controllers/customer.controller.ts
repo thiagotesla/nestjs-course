@@ -26,7 +26,18 @@ export class CustomerController{
             'Lista de todos os clientes',
             customers,
             true,
-            null
+            null,
+        );
+    }
+
+    @Get(':document')
+    async getOne(@Param('document') document){
+        const customer = await this.customerService.findOne({document});
+        return new Result(
+            'Cliente buscado: ',
+            customer,
+            true,
+            null,
         );
     }
 
@@ -36,11 +47,12 @@ export class CustomerController{
         try{
         const user = await this.accountService.create(new User(model.document, model.password, true));
         const customer = new Customer(model.name, model.email, model.document, null, null, null, null, user);
+        await this.customerService.create(customer);
             return new Result(
                 'Cliente criado com sucesso!',
                 {name: customer.name, email: customer.email},
                 true,
-                null
+                null,
             );
         }
         catch(error){
@@ -63,7 +75,7 @@ export class CustomerController{
                 'Endereço de cobrança adicionado co sucesso.',
                 response,
                 true,
-                null
+                null,
             );
         }
         catch(error){
@@ -86,7 +98,7 @@ export class CustomerController{
                 'Endereço de entrega adicionado com sucesso.',
                 response,
                 true,
-                null
+                null,
             );
         }
         catch(error){
@@ -109,7 +121,7 @@ export class CustomerController{
                 'Pet adicionado com sucesso.',
                 response,
                 true,
-                null
+                null,
             );
         }
         catch(error){
@@ -132,7 +144,7 @@ export class CustomerController{
                 'Pet alterado com sucesso',
                 response,
                 true,
-                null
+                null,
             );
         }
         catch(error){
