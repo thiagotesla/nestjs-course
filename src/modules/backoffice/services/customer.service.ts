@@ -1,15 +1,23 @@
-import { Injectable } from "@nestjs/common";
+import { Body, Injectable, Param } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { QueryDto } from "../dtos/query.dto";
-import { Address } from "../models/address.model";
+import { UpdateCustomerDto } from "../dtos/customer/update-customer.dto";
 import { Customer } from "../models/customer.model";
-import { Pet } from "../models/pets.model";
+import { CreditCard } from "../models/credit-card.model";
 
 @Injectable()
 export class CustomerService {
     constructor(@InjectModel('Customer') private readonly model: Model<Customer>){
     
+    }
+    async create(data: Customer): Promise<Customer>{
+        const customer = new this.model(data);
+        return await customer.save();
+    }
+
+    async update(document: string, data: UpdateCustomerDto){
+        return await this.model.findOneAndUpdate({ document }, data)
     }
 
     async findAll(): Promise<Customer[]>{
@@ -31,45 +39,12 @@ export class CustomerService {
             .sort(model.sort)
             .exec();
     }
-    
-    async create(data: Customer): Promise<Customer>{
-        const customer = new this.model(data);
-        return await customer.save();
-    }
-
-    async AddBillingAddress(document: string, data: Address): Promise<Customer>{
-        const options = {upsert: true};
-        return await this.model.findOneAndUpdate({document}, { 
+    async saveOrUpdateCreditCard(document: string, data: CreditCard ): Promise<Customer>{
+        const options = { upsert: true };
+        return await this.model.findOneAndUpdate({document}, {
             $set: {
-                billingAddress: data,
-            }
-        }, options) 
-    }
-
-    async AddShippingAddress(document: string, data: Address): Promise<Customer>{
-        const options = {upsert: true};
-        return await this.model.findOneAndUpdate({document}, { 
-            $set: {
-                shippingAddress: data,
-            }
-        }, options) 
-    }
-
-    async AddNewPet(document: string, data: Pet): Promise<Customer>{
-        const options = {upsert: true, new: true};
-        return await this.model.findOneAndUpdate({document}, { 
-            $push: {
-                pets: data,
-            }
-        }, options) 
-    }
-
-    async updatePet(document: string, id: string, data: Pet): Promise<Customer>{
-        const options = {upsert: true};
-        return await this.model.findOneAndUpdate({document, 'pets._id': id
-        },{ $set: {
-            'pets.$': data,
-            }
-        })
+                card: data,
+            },
+        }, options);
     }
 }
