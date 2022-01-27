@@ -1,4 +1,4 @@
-import { Pet } from "src/backoffice/models/pets.model";
+import { Pet } from "src/modules/backoffice/models/pets.model";
 import { Flunt } from "src/utils/flunt";
 import { Contract } from "../contract";
 
