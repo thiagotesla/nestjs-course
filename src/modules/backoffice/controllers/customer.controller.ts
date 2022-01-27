@@ -12,6 +12,7 @@ import { CustomerService } from "../services/customer.service";
 import { UpdateCustomerContract } from "../contracts/customer/update-customer.contract";
 import { CreateCreditCardContract } from "../contracts/customer/create-credit-card.contract";
 import { CreditCard } from "../models/credit-card.model";
+import { CreateQueryContract } from "../contracts/customer/query.contract";
 
 @Controller('v1/customers')
 export class CustomerController{
@@ -44,6 +45,7 @@ export class CustomerController{
     }
 
     @Post('query')
+    @UseInterceptors(new ValidatorInterceptor(new CreateQueryContract()))
     async query(@Body() model: QueryDto){
         const customers = await this.customerService.query(model)
         return new Result('Query executada com sucesso!', customers, true, null)
