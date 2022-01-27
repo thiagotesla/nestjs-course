@@ -4,6 +4,7 @@ import { CreateAddressContract } from "../contracts/customers/create-address.con
 import { CreateCustomerContract } from "../contracts/customers/create-customer.contract";
 import { CreatePetContract } from "../contracts/customers/create-pet.contract";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
+import { QueryDto } from "../dtos/query.dto";
 import { Address } from "../models/address.model";
 import { Customer } from "../models/customer.model";
 import { Pet } from "../models/pets.model";
@@ -39,6 +40,12 @@ export class CustomerController{
             true,
             null,
         );
+    }
+
+    @Post('query')
+    async query(@Body() model: QueryDto){
+        const customers = await this.customerService.query(model)
+        return new Result('Query executada com sucesso!', customers, true, null)
     }
 
     @Post()
