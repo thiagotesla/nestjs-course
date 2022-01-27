@@ -10,8 +10,13 @@ export class CustomerService {
     constructor(@InjectModel('Customer') private readonly model: Model<Customer>){
     
     }
+
     async findAll(): Promise<Customer[]>{
-        return await this.model.find({}, 'name email document').exec();
+        return await this.model.find({}, 'name email document').sort('name').exec();
+    }
+
+    async findOne(document): Promise<Customer>{
+        return this.model.findOne({document}).populate('user', 'username').exec();
     }
 
     async create(data: Customer): Promise<Customer>{
@@ -51,8 +56,7 @@ export class CustomerService {
         return await this.model.findOneAndUpdate({document, 'pets._id': id
         },{ $set: {
             'pets.$': data,
-        }
-
+            }
         })
     }
 }
