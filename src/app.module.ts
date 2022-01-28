@@ -22,7 +22,7 @@ import { Product } from './modules/store/entities/product.entity';
       synchronize: true,
     }),
     BackofficeModule,
-    StoreModule
+    StoreModule,
   ],
   controllers: [],
   providers: [],
