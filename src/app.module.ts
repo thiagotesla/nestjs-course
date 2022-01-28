@@ -4,6 +4,7 @@ import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { StoreModule } from './modules/store/store.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import 'dotenv/config'
+import { Product } from './modules/store/entities/product.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import 'dotenv/config'
       username: process.env.DB_USERNAME,
       password: process.env.DB_PW,
       database: process.env.DB_NAME,
-      entities: [__dirname + '/**/*/.entity{.ts,.js}'],
+      entities: [Product],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     BackofficeModule,
