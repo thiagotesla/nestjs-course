@@ -98,15 +98,18 @@ export class ProductController{
     }
 
     @Delete(':id')
-    async delete(@Param('id') id){
+    async delete(@Param('id') id: number){
         try{
-            await this.productService.delete(id);
-            return new Result('Produto deletado com sucesso.', null, true, null)
+            const product = await this.productService.delete(id);
+            return new Result('Produto deletado com sucesso.',
+            null,
+            true,
+            null)
         }catch(error){
             throw new HttpException(new Result(
                 'Não foi possivel deletar esse produto.',
-                false,
                 null,
+                false,
                 error),
                 HttpStatus.BAD_REQUEST
             );
