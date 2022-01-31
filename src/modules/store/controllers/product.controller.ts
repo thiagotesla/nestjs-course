@@ -35,7 +35,7 @@ export class ProductController{
     @Get(':id')
     async getOne(@Param('id') id){
         try{
-            const product = await this.productService.findOne(id);
+            const product = await this.productService.findById(id);
                 return new Result(
                     'Produto requisitado.',
                     product,
