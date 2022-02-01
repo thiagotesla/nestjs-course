@@ -17,10 +17,4 @@ export class Order{
 
     @OneToMany(() => OrderItem, (oi) => oi.order)
     items: OrderItem[];
-
-    @Column('decimal')
-    price: number;
-
-    @Column('decimal')
-    quantity: number;
 }
