@@ -67,7 +67,7 @@ export class ProductController{
         }
         catch(error){
             throw new HttpException(new Result(
-                'Não foiu possivel criar este produto.',
+                'Não foi possivel criar este produto.',
                 false,
                 null,
                 error),
