@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { StoreModule } from './modules/store/store.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import 'dotenv/config'
 import { Product } from './modules/store/entities/product.entity';
 import { OrderItem } from './modules/store/entities/order-item.entity';
 import { Order } from './modules/store/entities/order.entity';
+import 'dotenv/config'
 
 @Module({
   imports: [

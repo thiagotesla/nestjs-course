@@ -1,11 +1,11 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from "@nestjs/common";
-import { Result } from "src/modules/backoffice/models/result.model";
-import { OrderItemDto } from "../dtos/order-item.dto";
-import { OrderItem } from "../entities/order-item.entity";
-import { Order } from "../entities/order.entity";
 import { OrderItemService } from "../services/order-item.service";
 import { OrderService } from "../services/order.service";
 import { ProductService } from "../services/product.service";
+import { Result } from "src/modules/backoffice/models/result.model";
+import { Order } from "../entities/order.entity";
+import { OrderItem } from "../entities/order-item.entity";
+import { OrderItemDto } from "../dtos/order-item.dto";
 
 @Controller('v1/orders')
 export class OrderController{

@@ -1,17 +1,17 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
-import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
-import { CreateCustomerContract } from "../contracts/customer/create-customer.contract";
-import { CreateCustomerDto } from "../dtos/customer/create-customer.dto";
-import { QueryDto } from "../dtos/query.dto";
-import { UpdateCustomerDto } from "../dtos/customer/update-customer.dto";
 import { Customer } from "../models/customer.model";
 import { Result } from "../models/result.model";
 import { User } from "../models/user.model";
+import { CreditCard } from "../models/credit-card.model";
 import { AccountService } from "../services/account.service";
 import { CustomerService } from "../services/customer.service";
+import { CreateCustomerDto } from "../dtos/customer/create-customer.dto";
+import { UpdateCustomerDto } from "../dtos/customer/update-customer.dto";
+import { QueryDto } from "../dtos/query.dto";
+import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
+import { CreateCustomerContract } from "../contracts/customer/create-customer.contract";
 import { UpdateCustomerContract } from "../contracts/customer/update-customer.contract";
 import { CreateCreditCardContract } from "../contracts/customer/create-credit-card.contract";
-import { CreditCard } from "../models/credit-card.model";
 import { CreateQueryContract } from "../contracts/customer/query.contract";
 
 @Controller('v1/customers')

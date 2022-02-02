@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { CreateCustomerDto } from "src/modules/backoffice/dtos/customer/create-customer.dto";
 import { Flunt } from "src/utils/flunt";
 import { CreditCard } from "../../models/credit-card.model";
 import { Contract } from "../contract";
