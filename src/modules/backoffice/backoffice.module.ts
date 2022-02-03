@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { CacheModule, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { MongooseModule } from "@nestjs/mongoose";
 import { PassportModule } from "@nestjs/passport";
@@ -18,13 +18,14 @@ import 'dotenv/config'
 
 @Module({
     imports:[
-    PassportModule.register({ defaultStrategy: 'jwt'}),
-    JwtModule.register({
-        secret: process.env.SECRET_KEY,
-        signOptions: {
-            expiresIn: 3600,
-        },
-    }),
+        CacheModule.register(),
+        PassportModule.register({ defaultStrategy: 'jwt'}),
+        JwtModule.register({
+            secret: process.env.SECRET_KEY,
+            signOptions: {
+                expiresIn: 3600,
+            },
+        }),
         MongooseModule.forFeature([
             {
                 name: 'Customer',
@@ -34,7 +35,7 @@ import 'dotenv/config'
                 name: 'User',
                 schema: UserSchema,
             },
-        ])
+        ]),
     ],
     controllers: [
         CustomerController,
