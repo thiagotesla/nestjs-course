@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs/axios": "0.0.5",
     "@nestjs/common": "^8.2.6",
     "@nestjs/core": "^8.2.6",
     "@nestjs/jwt": "^8.0.0",
@@ -34,7 +35,7 @@
     "dotenv": "^14.3.2",
     "guid-typescript": "^1.0.9",
     "md5-typescript": "^1.0.5",
-    "mongoose": "^6.1.9",
+    "mongoose": "^6.2.0",
     "mysql2": "^2.3.3",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
