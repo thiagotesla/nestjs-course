@@ -1,4 +1,5 @@
-import { Body, Controller, HttpException, HttpStatus, Param, Post, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseInterceptors } from "@nestjs/common";
+import { firstValueFrom } from "rxjs";
 import { ValidatorInterceptor } from "src/interceptors/valitador.interceptor";
 import { CreateAddressContract } from "../contracts/address/create-address.contract";
 import { AddressType } from "../enums/address-type.enum";
@@ -53,6 +54,30 @@ export class AddressController{
                 'Não foi possível adicionar o endereço de entrega. Confira seus dados.',
                 false,
                 null,
+                error),
+                HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @Get('search/:zipcode')
+    async search(@Param('zipcode') zipcode: any){
+        
+        try{
+            //const response = await this.addressService.getAddressByZipCode(zipcode).toPromise();
+            const response = await firstValueFrom(this.addressService.getAddressByZipCode(zipcode));  
+            return new Result(
+                null,
+                response.data,
+                true,
+                null
+            );
+        }
+        catch (error) {
+            throw new HttpException(new Result(
+                'Não foi possível localizar seu endereço',
+                null,
+                false,
                 error),
                 HttpStatus.BAD_REQUEST
             );
