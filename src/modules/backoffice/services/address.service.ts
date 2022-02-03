@@ -34,7 +34,6 @@ export class AddressService {
     }
     getAddressByZipCode(zipcode: string):Observable<any> {
         const url = `https://viacep.com.br/ws/${zipcode}/json/`;
-        console.log(url);
         return this.httpService.get(url);
     }
 }
