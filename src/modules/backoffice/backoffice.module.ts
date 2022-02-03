@@ -2,6 +2,7 @@ import { CacheModule, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { MongooseModule } from "@nestjs/mongoose";
 import { PassportModule } from "@nestjs/passport";
+import { HttpModule } from "@nestjs/axios";
 import { AccountService } from "./services/account.service";
 import { AddressService } from "./services/address.service";
 import { CustomerService } from "./services/customer.service";
@@ -16,8 +17,10 @@ import { UserSchema } from "./schemas/user.schema";
 import { JwtStrategy } from "src/shared/strategies/jwt-stretagy";
 import 'dotenv/config'
 
+
 @Module({
     imports:[
+        HttpModule,
         CacheModule.register(),
         PassportModule.register({ defaultStrategy: 'jwt'}),
         JwtModule.register({
