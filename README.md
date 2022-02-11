@@ -23,6 +23,7 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
+Repositório onde salvei o arquivos do projeto 'petshop-API' desenvolvido no curso 7180 da plataforma balta.io
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
